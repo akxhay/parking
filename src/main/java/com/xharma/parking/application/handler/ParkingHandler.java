@@ -1,9 +1,6 @@
 package com.xharma.parking.application.handler;
 
-import com.xharma.parking.application.dto.DummyDto;
-import com.xharma.parking.application.dto.ParkingLotRequestDto;
-import com.xharma.parking.application.dto.ParkingLotPageDto;
-import com.xharma.parking.application.dto.ParkingLotResponseDto;
+import com.xharma.parking.application.dto.*;
 import org.springframework.http.ResponseEntity;
 
 public interface ParkingHandler {
@@ -14,4 +11,8 @@ public interface ParkingHandler {
     ResponseEntity<String> deleteParkingLot(Long id);
 
     ResponseEntity<String> createDummyParkingLot(DummyDto dummyDto);
+
+    ResponseEntity<AvailableParkingSlotDto> getParkingSlot(Long id, String size);
+
+    ResponseEntity<String> releaseParkingSlot(Long id, Long slotId);
 }

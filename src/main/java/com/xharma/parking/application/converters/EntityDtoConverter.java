@@ -85,10 +85,20 @@ public class EntityDtoConverter {
             floorRequestDto.setSmallSlots(dummyDto.getSmallSlotsPerFloor());
             floorRequestDto.setMediumSlots(dummyDto.getMediumSlotsPerFloor());
             floorRequestDto.setLargeSlots(dummyDto.getLargeSlotsPerFloor());
-            floorRequestDto.setXlargeSlots(dummyDto.getXLargeSlotsPerFloor());
+            floorRequestDto.setXlargeSlots(dummyDto.getXlargeSlotsPerFloor());
             floorRequestDtos.add(floorRequestDto);
         }
         return floorRequestDtos;
+    }
+
+    public static AvailableParkingSlotDto parkingSlotEntityToAvailableDto(ParkingSlot parkingSlot) {
+        AvailableParkingSlotDto availableParkingSlotDto = new AvailableParkingSlotDto();
+        availableParkingSlotDto.setSlotType(parkingSlot.getSlotType());
+        availableParkingSlotDto.setSlotNumber(parkingSlot.getSlotNumber());
+        availableParkingSlotDto.setSlotId(parkingSlot.getId());
+        availableParkingSlotDto.setFloorId(parkingSlot.getFloor().getId());
+        availableParkingSlotDto.setFloorName(parkingSlot.getFloor().getName());
+        return availableParkingSlotDto;
     }
 
 }

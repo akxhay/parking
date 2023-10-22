@@ -15,6 +15,6 @@ public class DummyDto {
 
     private long largeSlotsPerFloor;
 
-    private long xLargeSlotsPerFloor;
+    private long xlargeSlotsPerFloor;
 }
 

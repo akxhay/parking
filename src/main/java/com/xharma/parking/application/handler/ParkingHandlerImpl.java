@@ -1,10 +1,7 @@
 package com.xharma.parking.application.handler;
 
 import com.xharma.parking.application.converters.EntityDtoConverter;
-import com.xharma.parking.application.dto.DummyDto;
-import com.xharma.parking.application.dto.ParkingLotPageDto;
-import com.xharma.parking.application.dto.ParkingLotRequestDto;
-import com.xharma.parking.application.dto.ParkingLotResponseDto;
+import com.xharma.parking.application.dto.*;
 import com.xharma.parking.application.service.ParkingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +37,26 @@ public class ParkingHandlerImpl implements ParkingHandler {
 
     @Override
     public ResponseEntity<String> createDummyParkingLot(DummyDto dummyDto) {
-        parkingService.createParkingLots(EntityDtoConverter.dummyDtoToParkingLotDto(dummyDto));
+        EntityDtoConverter.dummyDtoToParkingLotDto(dummyDto).parallelStream().forEach(parkingService::createParkingLot);
         return ResponseEntity.ok("Dummy parking lots created successfully");
+    }
+
+    @Override
+    public ResponseEntity<AvailableParkingSlotDto> getParkingSlot(Long id, String size) {
+        AvailableParkingSlotDto availableParkingSlotDto = parkingService.findSuitableSlot(id, size);
+        if (availableParkingSlotDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        int count = parkingService.markSlotOccupied(availableParkingSlotDto.getSlotId());
+        if (count == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(availableParkingSlotDto);
+
+    }
+
+    @Override
+    public ResponseEntity<String> releaseParkingSlot(Long id, Long slotId) {
+        return null;
     }
 }
