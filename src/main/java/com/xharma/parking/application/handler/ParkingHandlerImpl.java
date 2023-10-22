@@ -47,7 +47,7 @@ public class ParkingHandlerImpl implements ParkingHandler {
         if (availableParkingSlotDto == null) {
             return ResponseEntity.notFound().build();
         }
-        int count = parkingService.markSlotOccupied(availableParkingSlotDto.getSlotId());
+        int count = parkingService.changeOccupied(availableParkingSlotDto.getSlotId(), true);
         if (count == 0) {
             return ResponseEntity.notFound().build();
         }
@@ -57,6 +57,10 @@ public class ParkingHandlerImpl implements ParkingHandler {
 
     @Override
     public ResponseEntity<String> releaseParkingSlot(Long id, Long slotId) {
-        return null;
+        int count = parkingService.changeOccupied(slotId, false);
+        if (count == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Parking slot freed successfully");
     }
 }

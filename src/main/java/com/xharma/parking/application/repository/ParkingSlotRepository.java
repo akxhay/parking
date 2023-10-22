@@ -18,7 +18,7 @@ public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> 
 
 
     @Modifying
-    @Query(value = "update parking_slot set is_occupied = true where id  =?1", nativeQuery = true)
-    int markOccupied(long parkingLotId);
+    @Query(value = "update parking_slot set is_occupied = ?2 where id  =?1", nativeQuery = true)
+    int markOccupied(long parkingLotId, boolean occupied);
 
 }

@@ -20,5 +20,5 @@ public interface ParkingService {
 
     AvailableParkingSlotDto findSuitableSlot(Long id, String size);
 
-    int markSlotOccupied(Long id);
+    int changeOccupied(Long id, boolean occupied);
 }
