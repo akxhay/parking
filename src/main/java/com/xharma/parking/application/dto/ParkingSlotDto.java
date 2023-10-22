@@ -6,6 +6,8 @@ import lombok.Data;
 
 public class ParkingSlotDto {
 
+    private long id;
+
     private String slotType;
 
     private Integer slotNumber;

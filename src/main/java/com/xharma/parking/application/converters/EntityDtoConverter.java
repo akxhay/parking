@@ -53,6 +53,7 @@ public class EntityDtoConverter {
 
     public static FloorResponseDto floorEntityToDto(Floor floor) {
         FloorResponseDto floorResponseDto = new FloorResponseDto();
+        floorResponseDto.setId(floor.getId());
         floorResponseDto.setName(floor.getName());
         floorResponseDto.setParkingSlots(floor.getParkingSlots().stream().map(EntityDtoConverter::parkingSlotEntityToDto).toList());
         return floorResponseDto;
@@ -60,6 +61,7 @@ public class EntityDtoConverter {
 
     public static ParkingSlotDto parkingSlotEntityToDto(ParkingSlot parkingSlot) {
         ParkingSlotDto parkingSlotDto = new ParkingSlotDto();
+        parkingSlotDto.setId(parkingSlot.getId());
         parkingSlotDto.setSlotType(parkingSlot.getSlotType());
         parkingSlotDto.setSlotNumber(parkingSlot.getSlotNumber());
         parkingSlotDto.setOccupied(parkingSlot.isOccupied());

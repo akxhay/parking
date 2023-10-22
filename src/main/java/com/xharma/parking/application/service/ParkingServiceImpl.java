@@ -101,6 +101,6 @@ public class ParkingServiceImpl implements ParkingService {
     @Transactional
     @Override
     public int changeOccupied(Long id, boolean occupied) {
-        return parkingSlotRepository.markOccupied(id, true);
+        return parkingSlotRepository.markOccupied(id, occupied);
     }
 }
