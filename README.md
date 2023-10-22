@@ -1,12 +1,8 @@
-# Spring Project with PostgreSQL Integration
-
-This Spring project is a simple example of integrating PostgreSQL with a Spring Boot application. It includes
-information on how to set up the PostgreSQL database, configure the project, and provides sample APIs to interact with
-the database.
+# Parking management system
 
 ## Prerequisites
 
-- Java Development Kit (JDK) - Install Java 11 or later.
+- Java Development Kit (JDK) - Install Java 17 or later.
 - Apache Maven - Install Maven to build and manage the project.
 - PostgreSQL Database - Install and set up a PostgreSQL database. You'll need the database name, username, and password.
 
@@ -14,7 +10,7 @@ the database.
 
 1. Clone the repository:
 ```shell
-git clone https://github.com/yourusername/spring-postgresql-project.git
+git clone https://github.com/akxhay/parking.git
 ```
 2. Open the project in your favorite IDE (e.g., IntelliJ IDEA, Eclipse).
 
@@ -170,6 +166,9 @@ Response:
 4. Delete parking lot
 
  ```shell
+uri: lot/{parking_lot_id}
+parking_lot_id: parking lot id
+
 curl --location --request DELETE 'http://localhost:8080/parking/lot/1203'
 
 Response:Parking lot deleted successfully
@@ -179,6 +178,10 @@ Response:Parking lot deleted successfully
 5. Get parking slot
 
  ```shell
+uri: getslot/{parking_lot_id}/{size}
+parking_lot_id: parking lot id
+size: s/m/l/xl
+
 curl --location 'http://localhost:8080/parking/getslot/1204/s' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json'
@@ -197,6 +200,10 @@ Response:
 6. Release parking slot
 
  ```shell
+uri: releaseslot/{parking_lot_id}/{slot_id}
+parking_lot_id: parking lot id
+slot_id: slot id
+
 curl --location --request PUT 'http://localhost:8080/parking/releaseslot/1/1440033' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json'
