@@ -7,18 +7,18 @@ import com.xharma.parking.application.dto.ParkingLotResponseDto;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
-
 public interface ParkingService {
-    void createParkingLots(List<ParkingLotRequestDto> parkingLotRequestDto);
-
     ParkingLotResponseDto createParkingLot(ParkingLotRequestDto parkingLotRequestDto);
 
     ParkingLotPageDto fetchParkingLots(PageRequest pageRequest);
 
-    void deleteParkingLot(Long id);
+    boolean deleteParkingLot(Long id);
 
     AvailableParkingSlotDto findSuitableSlot(Long id, String size);
 
+
+    int releaseParkingLot(Long id, Long slotId);
+
+    @Transactional
     int changeOccupied(Long id, boolean occupied);
 }

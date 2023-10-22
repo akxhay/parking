@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.xharma.parking.application.converters.EntityDtoConverter.parkingSlotEntityToAvailableDto;
@@ -32,15 +32,10 @@ public class ParkingServiceImpl implements ParkingService {
     @Autowired
     private ParkingSlotRepository parkingSlotRepository;
 
-    @Override
-    public void createParkingLots(List<ParkingLotRequestDto> parkingLotRequestDto) {
-        log.info("saving new parking lots");
-        parkingRepository.saveAll(parkingLotRequestDto.stream().map(EntityDtoConverter::parkingLotDtoToEntity).toList());
-    }
 
     @Override
     public ParkingLotResponseDto createParkingLot(ParkingLotRequestDto parkingLotRequestDto) {
-        log.info("saving new parking lot , name : {}", parkingLotRequestDto.getName());
+        log.info("Saving new parking lot , name : {}", parkingLotRequestDto.getName());
         ParkingLot parkingLot = EntityDtoConverter.parkingLotDtoToEntity(parkingLotRequestDto);
         ParkingLot persistedEntity = parkingRepository.save(parkingLot);
         return EntityDtoConverter.parkingLotEntityToDto(persistedEntity);
@@ -48,17 +43,24 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public ParkingLotPageDto fetchParkingLots(PageRequest pageRequest) {
+        log.info("Fetching parking lots");
         Page<ParkingLot> parkingLots = parkingRepository.findAll(pageRequest);
         return new ParkingLotPageDto(parkingLots.getTotalPages(), parkingLots.getTotalElements(), parkingLots.get().map(EntityDtoConverter::parkingLotEntityToDto).toList());
     }
 
     @Override
-    public void deleteParkingLot(Long id) {
+    public boolean deleteParkingLot(Long id) {
+        log.info("Deleting parking lot with id {}", id);
+        var opt = parkingRepository.findById(id);
+        if (opt.isEmpty()) return false;
         parkingRepository.deleteById(id);
+        return true;
+
     }
 
     @Override
     public AvailableParkingSlotDto findSuitableSlot(Long id, String size) {
+        log.info("Finding parking slot with id: {}, size: {}", id, size);
         switch (size) {
             case "s": {
                 Optional<ParkingSlot> smallParkingSlot = parkingSlotRepository.findAvailableSots(id, "s");
@@ -96,6 +98,23 @@ public class ParkingServiceImpl implements ParkingService {
                 return null;
             }
         }
+    }
+
+    @Override
+    @Transactional
+
+    public int releaseParkingLot(Long id, Long slotId) {
+        log.info("Releasing parking slot with id: {}, slotId: {}", id, slotId);
+        var opt = parkingSlotRepository.findById(id);
+        if (opt.isEmpty()) {
+            log.info("Invalid Slot");
+            return 0;
+        }
+        if (!Objects.equals(opt.get().getFloor().getParkingLot().getId(), id)) {
+            log.info("Slot does not belong to parking lot");
+            return 0;
+        }
+        return parkingSlotRepository.markOccupied(slotId, false);
     }
 
     @Transactional

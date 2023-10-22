@@ -31,7 +31,10 @@ public class ParkingHandlerImpl implements ParkingHandler {
 
     @Override
     public ResponseEntity<String> deleteParkingLot(Long id) {
-        parkingService.deleteParkingLot(id);
+        boolean deleted = parkingService.deleteParkingLot(id);
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok("Parking lot deleted successfully");
     }
 
@@ -57,7 +60,7 @@ public class ParkingHandlerImpl implements ParkingHandler {
 
     @Override
     public ResponseEntity<String> releaseParkingSlot(Long id, Long slotId) {
-        int count = parkingService.changeOccupied(slotId, false);
+        int count = parkingService.releaseParkingLot(id, slotId);
         if (count == 0) {
             return ResponseEntity.notFound().build();
         }

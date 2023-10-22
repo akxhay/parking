@@ -1,7 +1,6 @@
 package com.xharma.parking.application.repository;
 
 import com.xharma.parking.application.entity.ParkingSlot;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +18,7 @@ public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> 
 
     @Modifying
     @Query(value = "update parking_slot set is_occupied = ?2 where id  =?1", nativeQuery = true)
-    int markOccupied(long parkingLotId, boolean occupied);
+    int markOccupied(long slotId, boolean occupied);
+
 
 }
