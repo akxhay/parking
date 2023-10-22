@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> {
 
 
-    @Query(value = "select * from parking_slot ps where floor_id in (select id from \"floor\" f where parking_lot_id =?1 ) and ps.slot_type =?2 and ps.is_occupied = false limit 1 ", nativeQuery = true)
+    @Query(value = "select * from parking_slot ps where floor_id in (select id from \"floor\" f where parking_lot_id =?1 ) and ps.slot_type =?2 and ps.is_occupied = false order by id limit 1 ", nativeQuery = true)
     Optional<ParkingSlot> findAvailableSots(long parkingLotId, String slotType);
 
 
