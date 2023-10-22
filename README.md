@@ -204,7 +204,7 @@ uri: releaseslot/{parking_lot_id}/{slot_id}
 parking_lot_id: parking lot id
 slot_id: slot id
 
-curl --location --request PUT 'http://localhost:8080/parking/releaseslot/1/1440033' \
+curl --location --request PUT 'http://localhost:8080/parking/releaseslot/1204/1440033' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json'
 

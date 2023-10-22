@@ -105,7 +105,7 @@ public class ParkingServiceImpl implements ParkingService {
 
     public int releaseParkingLot(Long id, Long slotId) {
         log.info("Releasing parking slot with id: {}, slotId: {}", id, slotId);
-        var opt = parkingSlotRepository.findById(id);
+        var opt = parkingSlotRepository.findById(slotId);
         if (opt.isEmpty()) {
             log.info("Invalid Slot");
             return 0;
