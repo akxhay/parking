@@ -7,6 +7,7 @@ import com.xharma.parking.application.dto.ParkingLotRequestDto;
 import com.xharma.parking.application.dto.ParkingLotResponseDto;
 import com.xharma.parking.application.entity.ParkingLot;
 import com.xharma.parking.application.entity.ParkingSlot;
+import com.xharma.parking.application.exceptions.ParkingException;
 import com.xharma.parking.application.repository.ParkingRepository;
 import com.xharma.parking.application.repository.ParkingSlotRepository;
 import jakarta.transaction.Transactional;
@@ -36,6 +37,10 @@ public class ParkingServiceImpl implements ParkingService {
     @Override
     public ParkingLotResponseDto createParkingLot(ParkingLotRequestDto parkingLotRequestDto) {
         log.info("Saving new parking lot , name : {}", parkingLotRequestDto.getName());
+        if (parkingRepository.findByName(parkingLotRequestDto.getName()).isPresent()) {
+            log.info("Parking lot already present with  name : {}", parkingLotRequestDto.getName());
+            throw new ParkingException("Parking lot is already present with this name");
+        }
         ParkingLot parkingLot = EntityDtoConverter.parkingLotDtoToEntity(parkingLotRequestDto);
         ParkingLot persistedEntity = parkingRepository.save(parkingLot);
         return EntityDtoConverter.parkingLotEntityToDto(persistedEntity);
