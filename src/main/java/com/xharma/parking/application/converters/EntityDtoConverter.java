@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityDtoConverter {
+
+    private EntityDtoConverter() {
+    }
+
     public static ParkingLot parkingLotDtoToEntity(ParkingLotRequestDto parkingLotRequestDto) {
         ParkingLot parkingLot = new ParkingLot();
         parkingLot.setName(parkingLotRequestDto.getName());
