@@ -249,4 +249,4 @@ curl --location --request PUT 'http://localhost:8080/parking/releaseslot/{parkin
 
 > Failure Response: Parking Slot could not be released
 
-Thank you
+Thank you. 😄
