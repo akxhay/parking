@@ -38,6 +38,9 @@
     ```
 5. The application should start, and you can access the following APIs.
 
+## Database design ERD
+![parking_management.png](src/main/resources/static/parking_management.png)
+
 ## APIs
 
 ### Create 1200 Dummy parking lots
