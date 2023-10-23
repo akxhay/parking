@@ -2,26 +2,31 @@
 
 ## Prerequisites
 
-- Java Development Kit (JDK) - Install Java 17 or later.
-- Apache Maven - Install Maven to build and manage the project.
-- PostgreSQL Database - Install and set up a PostgreSQL database. You'll need the database name, username, and password.
+- Java Development Kit (JDK): Install Java 17 or later.
+- Apache Maven: Install Maven to build and manage the project.
+- PostgresSQL Database: Install and set up a PostgresSQL database. You'll need the database name, username, and
+  password.
 
 ## Configuration
 
 1. Clone the repository:
-```shell
-git clone https://github.com/akxhay/parking.git
-```
+
+   ```shell
+   git clone https://github.com/akxhay/parking.git
+   ```
+
 2. Open the project in your favorite IDE (e.g., IntelliJ IDEA, Eclipse).
 
-3. Configure PostgreSQL Database:
-    * Create a PostgreSQL database with your preferred name (e.g., parking_management).
+3. Configure PostgresSQL Database:
+   * Create a PostgresSQL database with your preferred name (e.g., parking_management).
     * Update the database connection properties in src/main/resources/application.properties:
-```shell
-spring.datasource.url=jdbc:postgresql://localhost:5432/parking_management
-spring.datasource.username=username
-spring.datasource.password=password
-```
+
+   ```shell
+   spring.datasource.url=jdbc:postgresql://localhost:5432/parking_management
+   spring.datasource.username=username
+   spring.datasource.password=password
+   ```
+
 4. Build and Run
     * Build the project using Maven:
    ```shell
@@ -33,11 +38,11 @@ spring.datasource.password=password
     ```
 5. The application should start, and you can access the following APIs.
 
-**APIs**
+## APIs
 
-1. Create 1200 dummy parking lots
+### Create 1200 Dummy parking lots
 
- ```shell
+```shell
 curl --location 'http://localhost:8080/parking/lot/dummy' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
@@ -49,21 +54,20 @@ curl --location 'http://localhost:8080/parking/lot/dummy' \
   "largeSlotsPerFloor": 100,
   "xlargeSlotsPerFloor": 100
 }'
-
-Response: Dummy parking lots created successfully
-
 ```
 
-1. Create parking lot
+> Success Response: Dummy parking lots created successfully
 
- ```shell
+### Create a parking lot
+
+```shell
 curl --location 'http://localhost:8080/parking/lot' \
 --header 'Content-Type: application/json' \
 --data '{
-    "name": "parking lot 1",
+    "name": "My parking lot",
     "floors": [
         {
-            "name": "floor 1",
+            "name": "My floor 1",
             "smallSlots": 1,
             "mediumSlots": 1,
             "largeSlots": 1,
@@ -71,144 +75,178 @@ curl --location 'http://localhost:8080/parking/lot' \
         }
     ]
 }'
-
-Response: 
-{
-    "id": 1202,
-    "name": "parking lot 1",
-    "floors": [
-        {
-            "id": 3603,
-            "name": "floor 1",
-            "parkingSlots": [
-                {
-                    "id": 1440025,
-                    "slotType": "s",
-                    "slotNumber": 1,
-                    "occupied": false
-                },
-                {
-                    "id": 1440026,
-                    "slotType": "m",
-                    "slotNumber": 1,
-                    "occupied": false
-                },
-                {
-                    "id": 1440027,
-                    "slotType": "l",
-                    "slotNumber": 1,
-                    "occupied": false
-                },
-                {
-                    "id": 1440028,
-                    "slotType": "xl",
-                    "slotNumber": 1,
-                    "occupied": false
-                }
-            ]
-        }
-    ]
-}
-
 ```
 
-3. Fetch all parking lots
+> Success Response:
+
+```json
+{
+   "id": 1202,
+   "name": "My parking lot",
+   "floors": [
+      {
+         "id": 3603,
+         "name": "My floor 1",
+         "parkingSlots": [
+            {
+               "id": 1440009,
+               "slotType": "s",
+               "slotNumber": 1,
+               "numberPlate": null,
+               "arrivedAt": null,
+               "occupied": false
+            },
+            {
+               "id": 1440010,
+               "slotType": "m",
+               "slotNumber": 1,
+               "numberPlate": null,
+               "arrivedAt": null,
+               "occupied": false
+            },
+            {
+               "id": 1440011,
+               "slotType": "l",
+               "slotNumber": 1,
+               "numberPlate": null,
+               "arrivedAt": null,
+               "occupied": false
+            },
+            {
+               "id": 1440012,
+               "slotType": "xl",
+               "slotNumber": 1,
+               "numberPlate": null,
+               "arrivedAt": null,
+               "occupied": false
+            }
+         ]
+      }
+   ]
+}
+````
+
+> Failure Response: Parking lot is already present with this name
+
+### Fetch all parking lots
 
  ```shell
 curl --location 'http://localhost:8080/parking/lot?pageNumber=0&pageSize=1'
+```
 
-Response: 
+> Success Response:
+
+```json
 {
-    "totalPages": 1202,
-    "totalElements": 1202,
-    "parkingLots": [
-        {
-            "id": 1202,
-            "name": "parking lot 1",
-            "floors": [
-                {
-                    "id": 3603,
-                    "name": "floor 1",
-                    "parkingSlots": [
-                        {
-                            "id": 1440025,
-                            "slotType": "s",
-                            "slotNumber": 1,
-                            "occupied": false
-                        },
-                        {
-                            "id": 1440026,
-                            "slotType": "m",
-                            "slotNumber": 1,
-                            "occupied": false
-                        },
-                        {
-                            "id": 1440027,
-                            "slotType": "l",
-                            "slotNumber": 1,
-                            "occupied": false
-                        },
-                        {
-                            "id": 1440028,
-                            "slotType": "xl",
-                            "slotNumber": 1,
-                            "occupied": false
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+   "totalPages": 1201,
+   "totalElements": 1201,
+   "parkingLots": [
+      {
+         "id": 1202,
+         "name": "My parking lot",
+         "floors": [
+            {
+               "id": 3603,
+               "name": "My floor 1",
+               "parkingSlots": [
+                  {
+                     "id": 1440009,
+                     "slotType": "s",
+                     "slotNumber": 1,
+                     "numberPlate": null,
+                     "arrivedAt": null,
+                     "occupied": false
+                  },
+                  {
+                     "id": 1440010,
+                     "slotType": "m",
+                     "slotNumber": 1,
+                     "numberPlate": null,
+                     "arrivedAt": null,
+                     "occupied": false
+                  },
+                  {
+                     "id": 1440011,
+                     "slotType": "l",
+                     "slotNumber": 1,
+                     "numberPlate": null,
+                     "arrivedAt": null,
+                     "occupied": false
+                  },
+                  {
+                     "id": 1440012,
+                     "slotType": "xl",
+                     "slotNumber": 1,
+                     "numberPlate": null,
+                     "arrivedAt": null,
+                     "occupied": false
+                  }
+               ]
+            }
+         ]
+      }
+   ]
 }
+````
 
+> Failure Response: { "totalPages": 13, "totalElements": 1201, "parkingLots": [] }
+
+### Delete parking lot
+
+```shell
+curl --location --request DELETE 'http://localhost:8080/parking/lot/{parking_lot_id}'
 ```
 
-4. Delete parking lot
+> Success Response: Parking lot deleted successfully
+
+> Failure Response: Parking Slot was not deleted
+
+### Get parking slot
+
+> size: s : small, m : medium, l : large, xl :x-large
 
  ```shell
-uri: lot/{parking_lot_id}
-parking_lot_id: parking lot id
+curl --location 'http://localhost:8080/parking/getslot/{parking_lot_id}/{size}' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'numberPlate: ABED1234' \
+--header 'arrivedAt: 1698063736'
+````
 
-curl --location --request DELETE 'http://localhost:8080/parking/lot/1203'
+> Success Response:
 
-Response:Parking lot deleted successfully
+```json
+{
+   "slotId": 1440010,
+   "slotType": "m",
+   "slotNumber": 1,
+   "floorId": 3603,
+   "floorName": "My floor 1",
+   "numberPlate": "ABED1234",
+   "arrivedAt": 1698063734
+}
+````
 
+```text
+Failure Response: 
+   Car is already parked
+   Please find parking information below
+   Parking Lot Name: My parking lot
+   floor Name: My floor 1
+   Slot Type: m
+   Slot Number: 1
 ```
 
-5. Get parking slot
+### Release parking slot
 
  ```shell
-uri: getslot/{parking_lot_id}/{size}
-parking_lot_id: parking lot id
-size: s/m/l/xl
-
-curl --location 'http://localhost:8080/parking/getslot/1204/s' \
+curl --location --request PUT 'http://localhost:8080/parking/releaseslot/{parking_lot_id}/{slot_id}' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json'
-
-Response:
-{
-    "slotId": 1440033,
-    "slotType": "s",
-    "slotNumber": 1,
-    "floorId": 3605,
-    "floorName": "floor 1"
-}
-
 ```
 
-6. Release parking slot
+> Success Response: Parking slot freed successfully
 
- ```shell
-uri: releaseslot/{parking_lot_id}/{slot_id}
-parking_lot_id: parking lot id
-slot_id: slot id
-
-curl --location --request PUT 'http://localhost:8080/parking/releaseslot/1204/1440033' \
---header 'Accept: application/json' \
---header 'Content-Type: application/json'
-
-Response:Parking slot freed successfully
-```
+> Failure Response: Parking Slot could not be released
 
 Thank you

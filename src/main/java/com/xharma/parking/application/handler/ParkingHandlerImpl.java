@@ -23,6 +23,7 @@ public class ParkingHandlerImpl implements ParkingHandler {
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+
     @Override
     public ResponseEntity<ParkingLotResponseDto> createParkingLot(ParkingLotRequestDto parkingLotRequestDto) {
         return ResponseEntity.ok(parkingService.createParkingLot(parkingLotRequestDto));
