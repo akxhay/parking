@@ -72,7 +72,7 @@ public class EntityDtoConverter {
         List<ParkingLotRequestDto> parkingLotRequestDtos = new ArrayList<>();
         for (int i = 1; i <= dummyDto.getParkingLots(); i++) {
             ParkingLotRequestDto parkingLotRequestDto = new ParkingLotRequestDto();
-            parkingLotRequestDto.setName("Parking lot " + i);
+            parkingLotRequestDto.setName("Dummy Parking lot " + i);
             parkingLotRequestDto.setFloors(dummyDtoToFlorDto(dummyDto));
             parkingLotRequestDtos.add(parkingLotRequestDto);
         }

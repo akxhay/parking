@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         List<ObjectError> errors = result.getAllErrors();
         StringBuilder errorMessages = new StringBuilder();
 
-        errors.forEach(error -> errorMessages.append(error.getDefaultMessage()).append(";\n"));
+        errors.forEach(error -> errorMessages.append(error.getDefaultMessage()).append("; "));
 
         return ResponseEntity.badRequest().body(errorMessages.toString());
     }
