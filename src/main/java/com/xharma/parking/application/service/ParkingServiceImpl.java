@@ -107,7 +107,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     @Transactional
-
     public int releaseParkingLot(Long id, Long slotId) {
         log.info("Releasing parking slot with id: {}, slotId: {}", id, slotId);
         var opt = parkingSlotRepository.findById(slotId);
@@ -119,12 +118,24 @@ public class ParkingServiceImpl implements ParkingService {
             log.info("Slot does not belong to parking lot");
             return 0;
         }
-        return parkingSlotRepository.markOccupied(slotId, false);
+        return unPark(slotId);
     }
 
     @Transactional
     @Override
-    public int changeOccupied(Long id, boolean occupied) {
-        return parkingSlotRepository.markOccupied(id, occupied);
+    public int unPark(Long id) {
+        return parkingSlotRepository.unPark(id);
+    }
+
+    @Transactional
+    @Override
+    public int park(Long id, String numberPlate, long arrivedAt) {
+        return parkingSlotRepository.park(id, numberPlate, arrivedAt);
+    }
+
+    @Transactional
+    @Override
+    public ParkingSlot parkInfo(String numberPlate) {
+        return parkingSlotRepository.findByNumberPlate(numberPlate).orElse(null);
     }
 }

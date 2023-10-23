@@ -13,5 +13,9 @@ public class ParkingSlotDto {
     private Integer slotNumber;
 
     private boolean isOccupied;
+
+    private String numberPlate;
+
+    private Long arrivedAt;
 }
 

@@ -65,6 +65,8 @@ public class EntityDtoConverter {
         parkingSlotDto.setSlotType(parkingSlot.getSlotType());
         parkingSlotDto.setSlotNumber(parkingSlot.getSlotNumber());
         parkingSlotDto.setOccupied(parkingSlot.isOccupied());
+        parkingSlotDto.setNumberPlate(parkingSlot.getNumberPlate());
+        parkingSlotDto.setArrivedAt(parkingSlot.getArrivedAt());
         return parkingSlotDto;
     }
 

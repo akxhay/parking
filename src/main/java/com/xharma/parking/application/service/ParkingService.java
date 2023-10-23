@@ -4,6 +4,7 @@ import com.xharma.parking.application.dto.AvailableParkingSlotDto;
 import com.xharma.parking.application.dto.ParkingLotPageDto;
 import com.xharma.parking.application.dto.ParkingLotRequestDto;
 import com.xharma.parking.application.dto.ParkingLotResponseDto;
+import com.xharma.parking.application.entity.ParkingSlot;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 
@@ -19,6 +20,11 @@ public interface ParkingService {
 
     int releaseParkingLot(Long id, Long slotId);
 
+
+    int park(Long id, String numberPlate, long arrivedAt);
+
+    int unPark(Long id);
+
     @Transactional
-    int changeOccupied(Long id, boolean occupied);
+    ParkingSlot parkInfo(String numberPlate);
 }

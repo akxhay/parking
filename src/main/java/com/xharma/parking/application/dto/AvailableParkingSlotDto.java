@@ -16,6 +16,8 @@ public class AvailableParkingSlotDto {
 
     private String floorName;
 
+    private String numberPlate;
 
+    private Long arrivedAt;
 }
 

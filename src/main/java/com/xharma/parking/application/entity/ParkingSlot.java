@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Data
 @DynamicUpdate
 @Entity
 @Table(name = "parking_slot")
+@EnableJpaAuditing
 public class ParkingSlot {
 
     @Id
@@ -28,5 +30,11 @@ public class ParkingSlot {
 
     @Column(name = "is_occupied", nullable = false)
     private boolean isOccupied = false;
+
+    @Column(name = "number_plate", unique = true)
+    private String numberPlate;
+
+    @Column(name = "arrived_at")
+    private Long arrivedAt;
 }
 
