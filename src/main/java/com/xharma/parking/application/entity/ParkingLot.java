@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @DynamicUpdate
 @Entity
-@Table(name = "parking_lot")
+@Table(name = "parking_lots")
 public class ParkingLot {
 
     @Id

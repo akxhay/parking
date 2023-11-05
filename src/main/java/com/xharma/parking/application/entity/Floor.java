@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @DynamicUpdate
 @Entity
-@Table(name = "floor")
+@Table(name = "floors")
 public class Floor {
 
     @Id

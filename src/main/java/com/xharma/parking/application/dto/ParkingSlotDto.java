@@ -12,7 +12,7 @@ public class ParkingSlotDto {
 
     private Integer slotNumber;
 
-    private boolean isOccupied;
+    private boolean occupied;
 
     private String numberPlate;
 

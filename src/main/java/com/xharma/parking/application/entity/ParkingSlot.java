@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Data
 @DynamicUpdate
 @Entity
-@Table(name = "parking_slot")
+@Table(name = "parking_slots")
 @EnableJpaAuditing
 public class ParkingSlot {
 
@@ -28,8 +28,8 @@ public class ParkingSlot {
     @Column(name = "slot_number", nullable = false)
     private Integer slotNumber;
 
-    @Column(name = "is_occupied", nullable = false)
-    private boolean isOccupied = false;
+    @Column(name = "occupied", nullable = false)
+    private boolean occupied = false;
 
     @Column(name = "number_plate", unique = true)
     private String numberPlate;
