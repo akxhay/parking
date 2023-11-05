@@ -58,13 +58,13 @@ public class ParkingHandlerImpl implements ParkingHandler {
             log.info("Could not find parking slot");
             throw new ParkingException("Parking Slot is not available");
         }
-        String numberPlate = httpServletRequest.getHeader("numberPlate");
+        String numberPlate = httpServletRequest.getHeader("number-plate");
 
         if (!StringUtils.hasText(numberPlate)) {
             log.info("Number plate is not present in header");
             throw new ParkingException("Car cannot be parked without number plate");
         }
-        String arrivedAt = httpServletRequest.getHeader("arrivedAt");
+        String arrivedAt = httpServletRequest.getHeader("arrived-at");
         if (!StringUtils.hasText(arrivedAt) || !arrivedAt.matches("\\d*")) {
             log.info("Arrived At is not present in header");
             throw new ParkingException("Car arrival time is not present");

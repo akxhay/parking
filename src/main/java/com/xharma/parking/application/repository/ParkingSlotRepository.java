@@ -12,16 +12,16 @@ import java.util.Optional;
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> {
 
 
-    @Query(value = "select * from parking_slot ps where floor_id in (select id from \"floor\" f where parking_lot_id =?1 ) and ps.slot_type =?2 and ps.is_occupied = false order by id limit 1 ", nativeQuery = true)
+    @Query(value = "select * from parking_slots ps where floor_id in (select id from floors f where parking_lot_id =?1 ) and ps.slot_type =?2 and ps.occupied = false order by id limit 1 ", nativeQuery = true)
     Optional<ParkingSlot> findAvailableSots(long parkingLotId, String slotType);
 
 
     @Modifying
-    @Query(value = "update parking_slot set is_occupied = false, number_plate =null, arrived_at = null  where id =?1", nativeQuery = true)
+    @Query(value = "update parking_slots set occupied = false, number_plate =null, arrived_at = null  where id =?1", nativeQuery = true)
     int unPark(long slotId);
 
     @Modifying
-    @Query(value = "update parking_slot set is_occupied = true, number_plate =?2, arrived_at =?3  where id =?1", nativeQuery = true)
+    @Query(value = "update parking_slots set occupied = true, number_plate =?2, arrived_at =?3  where id =?1", nativeQuery = true)
     int park(long slotId, String numberPlate, long nanoTime);
 
     Optional<ParkingSlot> findByNumberPlate(String numberPlate);
